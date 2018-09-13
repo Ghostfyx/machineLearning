@@ -12,6 +12,7 @@
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
 def get_iris_data():
@@ -50,3 +51,13 @@ def get_wine_data():
     X_test_std = sc.transform(X_test)
     X_std = sc.transform(X)
     return X_train_std, X_test_std, y_train, y_test, X_std, y
+
+def get_breast_data():
+    breast = datasets.load_breast_cancer()
+    X = breast.data[:, 2:]
+    y = breast.target
+    # 原始数据的类标为B or M
+    le = LabelEncoder()
+    y = le.fit_transform(y)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.3, random_state=0)
+    return X_train, X_test, y_train, y_test
