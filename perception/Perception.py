@@ -7,7 +7,8 @@
 @File    : Perception.py
 @Software: PyCharm
 @version: 1.0
-@describe: python机器学习 感知器Demo
+@describe: python机器学习 感知器Demo，感知机仅仅对线性可分的数据集收敛，感知机存在
+原始形式和对偶形式两种
 '''
 import numpy as np
 import pandas as pd
@@ -38,7 +39,7 @@ class Perception(object):
             errors = 0
             # 遍历训练集，不断更新权重
             for xi,target in zip(X,y):
-                # 更新权重的计算，如果输出值和目标值一致，则更新权重为0
+                # 更新权重的计算，predict函数计算预测的类别
                 update = self.eta * (target - self.predict(xi))
                 self.w_[1:] += update * xi
                 # 表示权重的阈值
@@ -53,7 +54,7 @@ class Perception(object):
 
     def predict(self,X):
         """
-        单位跃迁函数，将特征向量与权重向量的乘积是否大于0，作为类别划分的边界
+        符号函数，将特征向量与权重向量的乘积是否大于0，作为类别划分的边界
         :param X:
         :return:
         """
